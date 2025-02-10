@@ -8,7 +8,8 @@ dotenv.config({
 export default {
 	database_url: process.env.DATABASE_URL,
 	port: process.env.PORT,
-	jwt_secret: process.env.JWT_SECRET,
+	jwt_access_secret: process.env.JWT_ACCESS_SECRET,
+	jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN,
 	node_env: process.env.NODE_ENV,
 	bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS,
 };
