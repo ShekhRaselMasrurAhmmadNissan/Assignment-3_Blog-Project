@@ -10,13 +10,13 @@ export default [
 	{
 		ignores: ['.node_modules/*', '.dist/*', '.build/*', './tsconfig.json'],
 		rules: {
-			eqeqeq: 'warn',
-			'no-unused-vars': 'warn', // Warn about unused variables
-			'no-console': 'warn', // Warn about console.log (useful for production)
+			eqeqeq: 'error',
+			'no-unused-vars': 'error', // Warn about unused variables
+			'no-console': 'error', // Warn about console.log (useful for production)
 			'no-undef': 'error', // Disallow undeclared variables
 			'prefer-const': 'error', // Prefer const over let
 			'no-var': 'error', // Disallow var
-			'no-unused-expressions': 'warn', // Warn about unused expressions
+			'no-unused-expressions': 'error', // Warn about unused expressions
 		},
 	},
 	pluginJs.configs.recommended,
