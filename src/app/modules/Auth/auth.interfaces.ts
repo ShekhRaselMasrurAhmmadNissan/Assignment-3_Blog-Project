@@ -1,2 +1,4 @@
-
-// Define your interfaces here
+export interface ILoginUser {
+	email: string;
+	password: string;
+}
