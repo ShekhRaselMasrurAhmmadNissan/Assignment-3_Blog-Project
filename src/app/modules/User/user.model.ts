@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import config from '../../config';
 import { ROLE } from './user.constants';
 import { IUser, IUserModel } from './user.interfaces';
@@ -51,3 +51,38 @@ userSchema.post('save', function (doc, next) {
 	doc.password = '';
 	next();
 });
+
+// Static Methods
+userSchema.statics.isUserExistsCheckWithEmail = async function (email: string) {
+	const isUserExists = await this.findOne({ email }, { _id: 1, email: 1 });
+	return isUserExists;
+};
+
+userSchema.statics.isUserBlockedCheckWithEmail = async function (
+	email: string
+) {
+	const isUserBlocked = await this.findOne({ email }, { isBlocked: 1 });
+	return isUserBlocked?.isBlocked;
+};
+
+userSchema.statics.isUserExistsCheckWithId = async function (userId: string) {
+	const isUserExists = await this.findOne(
+		{ _id: userId },
+		{ _id: 1, email: 1 }
+	);
+	return isUserExists;
+};
+
+userSchema.statics.isUserBlockedCheckWithId = async function (userId: string) {
+	const isUserBlocked = await this.findOne({ _id: userId }, { isBlocked: 1 });
+	return isUserBlocked?.isBlocked;
+};
+
+userSchema.statics.isPasswordMatched = async function (
+	plainTextPassword: string,
+	hashedPassword: string
+) {
+	return await bcrypt.compare(plainTextPassword, hashedPassword);
+};
+
+const User = model<IUser, IUserModel>('User', userSchema);
