@@ -52,6 +52,12 @@ userSchema.post('save', function (doc, next) {
 	next();
 });
 
+// Pre Find Method to filter out the blocked users
+userSchema.pre('find', function (next) {
+	this.where({ isBlocked: false });
+	next();
+});
+
 // Static Methods
 userSchema.statics.isUserExistsCheckWithEmail = async function (email: string) {
 	const isUserExists = await this.findOne({ email }, { _id: 1, email: 1 });
